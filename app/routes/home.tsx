@@ -1,13 +1,13 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { Container, Title } from "@mantine/core";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+export function meta() {
+  return [{ title: "Rust OAuth2 Server Admin" }];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return (
+    <Container pt="md">
+      <Title>Rust OAuth2 Server Admin</Title>
+    </Container>
+  );
 }
