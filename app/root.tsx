@@ -14,14 +14,32 @@ import "@mantine/dates/styles.css";
 import "@mantine/charts/styles.css";
 import "@mantine/notifications/styles.css";
 
-import { createTheme, MantineProvider } from "@mantine/core";
+import {
+  createTheme,
+  MantineProvider,
+  type MantineColorsTuple,
+} from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 
+const palePurple: MantineColorsTuple = [
+  "#f1f1ff",
+  "#e0dff2",
+  "#bfbdde",
+  "#9b98ca",
+  "#7d79b9",
+  "#6a66af",
+  "#605cac",
+  "#504c97",
+  "#464388",
+  "#3b3979",
+];
+
 const theme = createTheme({
-  /** Put your mantine theme override here */
+  colors: { palePurple },
+  primaryColor: "palePurple",
 });
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <head>
