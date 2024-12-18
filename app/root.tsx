@@ -20,6 +20,7 @@ import {
   type MantineColorsTuple,
 } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const palePurple: MantineColorsTuple = [
   "#f1f1ff",
@@ -57,12 +58,16 @@ export function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   );
 }
 
+const queryClient = new QueryClient();
+
 export default function App() {
   return (
     <MantineProvider theme={theme}>
-      <ModalsProvider>
-        <Outlet />
-      </ModalsProvider>
+      <QueryClientProvider client={queryClient}>
+        <ModalsProvider>
+          <Outlet />
+        </ModalsProvider>
+      </QueryClientProvider>
     </MantineProvider>
   );
 }

@@ -4,7 +4,7 @@ import Sidebar from "~/components/sidebar";
 
 export default function DashboardLayout() {
   return (
-    <Grid>
+    <Grid gutter="0">
       <Grid.Col span={3}>
         <Sidebar />
       </Grid.Col>
