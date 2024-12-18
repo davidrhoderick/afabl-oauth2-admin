@@ -13,8 +13,9 @@ import {
   rem,
   Alert,
   Title,
+  InputError,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { useForm, zodResolver } from "@mantine/form";
 import { IconPlus, IconX } from "@tabler/icons-react";
 import { randomId } from "@mantine/hooks";
 import type {
@@ -26,6 +27,7 @@ import type {
 } from "~/clients-api";
 import { useParams } from "react-router";
 import type { AxiosError } from "axios";
+import { z } from "zod";
 
 type FormRedirectUris = {
   redirectUris: Array<{ value: string; key: string }>;
@@ -34,6 +36,20 @@ type FormRedirectUris = {
 type NewClientForm = Omit<NewClient, "redirectUris"> & FormRedirectUris;
 
 type UpdatedClientForm = Omit<UpdatedClient, "redirectUris"> & FormRedirectUris;
+
+const zodRequiredString = (message = "Required") =>
+  z.string({ required_error: message }).trim().min(1, { message });
+
+const schema = z.object({
+  name: zodRequiredString(),
+  redirectUris: z
+    .array(z.object({ value: zodRequiredString().url(), key: z.string() }))
+    .nonempty(),
+  accessTokenValidity: z.number().min(60),
+  refreshTokenValidity: z.number().min(60),
+  disableRefreshToken: z.boolean().optional(),
+  refreshRefreshToken: z.boolean().optional(),
+});
 
 export default function ClientForm({
   mutation,
@@ -57,14 +73,16 @@ export default function ClientForm({
     : {
         name: "",
         redirectUris: [{ value: "", key: randomId() }],
-        refreshRefreshToken: true,
         accessTokenValidity: 3600,
         refreshTokenValidity: 1209600,
+        refreshRefreshToken: true,
+        disableRefreshToken: false,
       };
 
   const form = useForm<NewClientForm | UpdatedClientForm>({
     mode: "controlled",
     initialValues,
+    validate: zodResolver(schema),
   });
 
   const handleSubmit = ({
@@ -72,8 +90,6 @@ export default function ClientForm({
     ...formData
   }: NewClientForm) => {
     const redirectUris = formRedirectUris.map(({ value }) => value);
-
-    console.log({ ...formData, redirectUris });
 
     // @ts-expect-error we are shoe-horning 2 mutations into one
     mutation.mutate({ data: { ...formData, redirectUris }, clientId });
@@ -93,32 +109,42 @@ export default function ClientForm({
         <Fieldset legend="Redirect URIs">
           <Stack>
             {form.getValues().redirectUris.map(({ key }, index) => (
-              <Flex align="center" gap="md" key={key}>
-                <Input
-                  key={form.key(`redirectUris.${index}.value`)}
-                  w="100%"
-                  {...form.getInputProps(`redirectUris.${index}.value`)}
-                />
+              <Stack key={key}>
+                <Flex align="center" gap="md">
+                  <Input
+                    key={form.key(`redirectUris.${index}.value`)}
+                    w="100%"
+                    {...form.getInputProps(`redirectUris.${index}.value`)}
+                  />
 
-                <ActionIconGroup>
-                  <ActionIcon>
-                    <IconPlus
-                      stroke={2}
+                  <ActionIconGroup>
+                    <ActionIcon>
+                      <IconPlus
+                        stroke={2}
+                        onClick={() =>
+                          form.insertListItem("redirectUris", {
+                            value: "",
+                            key: randomId(),
+                          })
+                        }
+                      />
+                    </ActionIcon>
+                    <ActionIcon
+                      disabled={index === 0}
                       onClick={() =>
-                        form.insertListItem("redirectUris", {
-                          value: "",
-                          key: randomId(),
-                        })
-                      }
-                    />
-                  </ActionIcon>
-                  <ActionIcon
-                    disabled={index === 0}
-                    onClick={() => form.removeListItem("redirectUris", index)}>
-                    <IconX stroke={2} />
-                  </ActionIcon>
-                </ActionIconGroup>
-              </Flex>
+                        form.removeListItem("redirectUris", index)
+                      }>
+                      <IconX stroke={2} />
+                    </ActionIcon>
+                  </ActionIconGroup>
+                </Flex>
+
+                {form.errors[`redirectUris.${index}.value`] && (
+                  <InputError>
+                    {form.errors[`redirectUris.${index}.value`]}
+                  </InputError>
+                )}
+              </Stack>
             ))}
           </Stack>
         </Fieldset>

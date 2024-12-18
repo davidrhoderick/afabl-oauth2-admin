@@ -26,10 +26,12 @@
     "axios": "^1.7.9",
     "dayjs": "^1.11.13",
     "isbot": "^5.1.17",
+    "mantine-form-zod-resolver": "^1.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.0.2",
-    "recharts": "^2.15.0"
+    "recharts": "^2.15.0",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.3.0",
