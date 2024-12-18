@@ -1,7 +1,6 @@
 import {
   Alert,
   Button,
-  ButtonGroup,
   Center,
   Flex,
   Loader,
@@ -34,17 +33,20 @@ export default function Home() {
         <Table>
           <Table.Thead>
             <Table.Tr>
-              <Table.Th w="33%">ID</Table.Th>
               <Table.Th>Name</Table.Th>
+              <Table.Th>ID</Table.Th>
+              <Table.Th>Secret</Table.Th>
+              <Table.Th />
             </Table.Tr>
           </Table.Thead>
 
           {data?.data && data.data.length > 0 && (
             <Table.Tbody>
-              {data.data.map(({ id, name }) => (
+              {data.data.map(({ id, name, secret }) => (
                 <Table.Tr key={id}>
-                  <Table.Td>{id}</Table.Td>
                   <Table.Td>{name}</Table.Td>
+                  <Table.Td>{id}</Table.Td>
+                  <Table.Td>{secret}</Table.Td>
                   <Table.Td>
                     <Flex justify="end" gap="md">
                       <Button component={Link} to={`/update-client/${id}`}>
@@ -53,8 +55,7 @@ export default function Home() {
                       <Button
                         component={Link}
                         color="red"
-                        to={`/delete-client/${id}`}
-                      >
+                        to={`/delete-client/${id}`}>
                         Delete
                       </Button>
                     </Flex>

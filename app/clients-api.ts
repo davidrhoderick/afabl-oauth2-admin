@@ -53,6 +53,8 @@ export type ClientsItem = {
   id: string;
   /** @minLength 1 */
   name: string;
+  /** @minLength 1 */
+  secret: string;
 };
 
 export type Clients = ClientsItem[];
@@ -409,7 +411,7 @@ export const getPatchClientsClientIdResponseMock = (overrideResponse: Partial< C
 
 export const getPostClientsResponseMock = (overrideResponse: Partial< Client > = {}): Client => ({accessTokenValidity: faker.helpers.arrayElement([faker.number.int({min: 60, max: undefined}), undefined]), disableRefreshToken: faker.helpers.arrayElement([faker.datatype.boolean(), undefined]), id: faker.string.alpha(20), name: faker.string.alpha(20), redirectUris: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.internet.url())), refreshRefreshToken: faker.helpers.arrayElement([faker.datatype.boolean(), undefined]), refreshTokenValidity: faker.helpers.arrayElement([faker.number.int({min: 60, max: undefined}), undefined]), secret: faker.string.alpha(20), ...overrideResponse})
 
-export const getGetClientsResponseMock = (): Clients => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({id: faker.string.alpha(20), name: faker.string.alpha(20)})))
+export const getGetClientsResponseMock = (): Clients => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({id: faker.string.alpha(20), name: faker.string.alpha(20), secret: faker.string.alpha(20)})))
 
 
 export const getGetClientsClientIdMockHandler = (overrideResponse?: Client | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<Client> | Client)) => {
