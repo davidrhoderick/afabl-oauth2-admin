@@ -1,6 +1,7 @@
 import {
   Alert,
   Button,
+  ButtonGroup,
   Center,
   Flex,
   Loader,
@@ -9,7 +10,7 @@ import {
   Table,
   Title,
 } from "@mantine/core";
-import { Link, Outlet, useNavigate } from "react-router";
+import { Link, Outlet } from "react-router";
 import { useGetClients } from "~/clients-api";
 
 export function meta() {
@@ -18,8 +19,6 @@ export function meta() {
 
 export default function Home() {
   const { data, error, isLoading } = useGetClients();
-
-  const navigate = useNavigate();
 
   return (
     <>
@@ -43,23 +42,22 @@ export default function Home() {
           {data?.data && data.data.length > 0 && (
             <Table.Tbody>
               {data.data.map(({ id, name }) => (
-                <Table.Tr
-                  key={id}
-                  onClick={() => navigate(`/update-client/${id}`)}
-                >
+                <Table.Tr key={id}>
                   <Table.Td>{id}</Table.Td>
                   <Table.Td>{name}</Table.Td>
                   <Table.Td>
-                    <Button
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        event.preventDefault();
-
-                        navigate(`/delete-client/${id}`);
-                      }}
-                    >
-                      Delete
-                    </Button>
+                    <Flex justify="end" gap="md">
+                      <Button component={Link} to={`/update-client/${id}`}>
+                        Edit
+                      </Button>
+                      <Button
+                        component={Link}
+                        color="red"
+                        to={`/delete-client/${id}`}
+                      >
+                        Delete
+                      </Button>
+                    </Flex>
                   </Table.Td>
                 </Table.Tr>
               ))}
