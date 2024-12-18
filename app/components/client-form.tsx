@@ -11,6 +11,8 @@ import {
   TextInput,
   Text,
   rem,
+  Alert,
+  Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconPlus, IconX } from "@tabler/icons-react";
@@ -23,6 +25,7 @@ import type {
   usePostClients,
 } from "~/clients-api";
 import { useParams } from "react-router";
+import type { AxiosError } from "axios";
 
 type FormRedirectUris = {
   redirectUris: Array<{ value: string; key: string }>;
@@ -33,13 +36,12 @@ type NewClientForm = Omit<NewClient, "redirectUris"> & FormRedirectUris;
 type UpdatedClientForm = Omit<UpdatedClient, "redirectUris"> & FormRedirectUris;
 
 export default function ClientForm({
-  mutate,
+  mutation,
   initialValues: rawInitialValues,
 }: Readonly<{
-  mutate: (
+  mutation:
     | ReturnType<typeof usePostClients>
-    | ReturnType<typeof usePatchClientsClientId>
-  )["mutate"];
+    | ReturnType<typeof usePatchClientsClientId>;
   initialValues?: Client;
 }>) {
   const { clientId } = useParams();
@@ -74,7 +76,7 @@ export default function ClientForm({
     console.log({ ...formData, redirectUris });
 
     // @ts-expect-error we are shoe-horning 2 mutations into one
-    mutate({ data: { ...formData, redirectUris }, clientId });
+    mutation.mutate({ data: { ...formData, redirectUris }, clientId });
   };
 
   return (
@@ -112,8 +114,7 @@ export default function ClientForm({
                   </ActionIcon>
                   <ActionIcon
                     disabled={index === 0}
-                    onClick={() => form.removeListItem("redirectUris", index)}
-                  >
+                    onClick={() => form.removeListItem("redirectUris", index)}>
                     <IconX stroke={2} />
                   </ActionIcon>
                 </ActionIconGroup>
@@ -162,7 +163,21 @@ export default function ClientForm({
           </Stack>
         </Fieldset>
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" loading={mutation.isPending}>
+          Submit
+        </Button>
+
+        {mutation.isError && (
+          <Alert color="red">
+            <Title order={3}>Uh oh! Something went wrong.</Title>
+            <Text>
+              {/* @ts-expect-error error should always have a message */}
+              {typeof mutation.error.message === "string"
+                ? (mutation.error as AxiosError).message
+                : "Please check the server logs"}
+            </Text>
+          </Alert>
+        )}
       </Stack>
     </form>
   );

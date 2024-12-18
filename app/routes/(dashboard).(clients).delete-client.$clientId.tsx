@@ -1,4 +1,5 @@
-import { Button, Flex, Modal, Stack, Text, Title } from "@mantine/core";
+import { Alert, Button, Flex, Modal, Stack, Text, Title } from "@mantine/core";
+import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { useDeleteClientsClientId, useGetClients } from "~/clients-api";
 
@@ -9,7 +10,11 @@ export default function DeleteClient() {
 
   const { data } = useGetClients();
 
-  const { mutate } = useDeleteClientsClientId();
+  const mutation = useDeleteClientsClientId();
+
+  useEffect(() => {
+    if (mutation.isSuccess) navigate("/");
+  }, [mutation]);
 
   return (
     <Modal opened={true} onClose={() => navigate("/")} title="Delete Client">
@@ -26,10 +31,20 @@ export default function DeleteClient() {
             Cancel
           </Button>
 
-          <Button color="red" onClick={() => mutate({ clientId: clientId! })}>
+          <Button
+            color="red"
+            onClick={() => mutation.mutate({ clientId: clientId! })}
+            loading={mutation.isPending}>
             Delete
           </Button>
         </Flex>
+
+        {mutation.isError && (
+          <Alert color="red">
+            <Title order={3}>Uh oh! Something went wrong.</Title>
+            <Text>{mutation.error.message}</Text>
+          </Alert>
+        )}
       </Stack>
     </Modal>
   );
