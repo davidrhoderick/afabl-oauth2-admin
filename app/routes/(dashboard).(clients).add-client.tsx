@@ -6,7 +6,7 @@ import ClientForm from "~/components/client-form";
 import { queryClient } from "~/root";
 
 export function meta() {
-  return [{ title: "afabl OAuth2 | Add client" }];
+  return [{ title: "oauthabl | add client" }];
 }
 
 export default function AddClient() {

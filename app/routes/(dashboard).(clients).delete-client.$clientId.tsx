@@ -9,7 +9,7 @@ import {
 import { queryClient } from "~/root";
 
 export function meta() {
-  return [{ title: "afabl OAuth2 | Delete client" }];
+  return [{ title: "oauthabl | delete client" }];
 }
 
 export default function DeleteClient() {

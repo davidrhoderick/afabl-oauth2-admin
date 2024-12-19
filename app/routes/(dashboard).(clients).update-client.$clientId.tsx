@@ -10,7 +10,7 @@ import ClientForm from "~/components/client-form";
 import { queryClient } from "~/root";
 
 export function meta() {
-  return [{ title: "afabl OAuth2 | Update client" }];
+  return [{ title: "oauthabl | update client" }];
 }
 
 export default function UpdateClient() {

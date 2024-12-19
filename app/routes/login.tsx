@@ -10,7 +10,7 @@ import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router";
 
 export function meta() {
-  return [{ title: "afabl OAuth2 | Login" }];
+  return [{ title: "oauthabl | login" }];
 }
 
 type LoginFormValues = {

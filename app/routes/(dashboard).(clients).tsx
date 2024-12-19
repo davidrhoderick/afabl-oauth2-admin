@@ -13,7 +13,7 @@ import { Link, Outlet } from "react-router";
 import { useGetClients } from "~/clients-api";
 
 export function meta() {
-  return [{ title: "afabl OAuth2 | Clients" }];
+  return [{ title: "oauthabl | clients" }];
 }
 
 export default function Home() {

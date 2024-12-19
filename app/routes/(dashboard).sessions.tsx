@@ -1,7 +1,7 @@
 import { Title } from "@mantine/core";
 
 export function meta() {
-  return [{ title: "afabl OAuth2 | Sessions" }];
+  return [{ title: "oauthabl | sessions" }];
 }
 
 export default function Sessions() {

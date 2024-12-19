@@ -10,7 +10,7 @@ export default function DashboardLayout() {
       </Grid.Col>
 
       <Grid.Col span={9} p="md">
-        <Title mb="lg">afabl oauth2</Title>
+        <Title mb="lg">oauthabl</Title>
         <Outlet />
       </Grid.Col>
     </Grid>
