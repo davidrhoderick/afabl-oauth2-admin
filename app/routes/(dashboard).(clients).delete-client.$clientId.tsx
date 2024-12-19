@@ -4,8 +4,9 @@ import { Link, useNavigate, useParams } from "react-router";
 import {
   useDeleteClientsClientId,
   useGetClients,
-  type Clients,
-} from "~/clients-api";
+} from "~/generated/endpoints/clients/clients";
+import type { Clients } from "~/generated/models";
+
 import { queryClient } from "~/root";
 
 export function meta() {

@@ -10,14 +10,16 @@ import {
   Title,
 } from "@mantine/core";
 import { Link, Outlet } from "react-router";
-import { useGetClients } from "~/clients-api";
+import { useGetClients } from "~/generated/endpoints/clients/clients";
 
 export function meta() {
   return [{ title: "oauthabl | clients" }];
 }
 
 export default function Home() {
-  const { data, error, isLoading } = useGetClients({query: {queryKey: ['clients']}});
+  const { data, error, isLoading } = useGetClients({
+    query: { queryKey: ["clients"] },
+  });
 
   return (
     <>

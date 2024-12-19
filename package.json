@@ -7,7 +7,7 @@
     "dev": "react-router dev",
     "start": "cross-env NODE_ENV=production react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
-    "generate": "orval"
+    "generate": "orval --prettier"
   },
   "dependencies": {
     "@mantine/charts": "^7.15.1",

@@ -1,4 +1,4 @@
-import { Grid, Title } from "@mantine/core";
+import { Grid } from "@mantine/core";
 import { Outlet } from "react-router";
 import Sidebar from "~/components/sidebar";
 

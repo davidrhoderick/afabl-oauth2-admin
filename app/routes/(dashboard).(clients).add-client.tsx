@@ -1,8 +1,9 @@
 import { Modal } from "@mantine/core";
 import type { AxiosResponse } from "axios";
 import { useNavigate } from "react-router";
-import { usePostClients, type Clients } from "~/clients-api";
 import ClientForm from "~/components/client-form";
+import { usePostClients } from "~/generated/endpoints/clients/clients";
+import type { Clients } from "~/generated/models";
 import { queryClient } from "~/root";
 
 export function meta() {

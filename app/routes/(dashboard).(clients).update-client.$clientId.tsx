@@ -1,12 +1,12 @@
 import { Alert, Center, Loader, Modal, Text, Title } from "@mantine/core";
 import type { AxiosResponse } from "axios";
 import { useNavigate, useParams } from "react-router";
+import ClientForm from "~/components/client-form";
 import {
   useGetClientsClientId,
   usePatchClientsClientId,
-  type Clients,
-} from "~/clients-api";
-import ClientForm from "~/components/client-form";
+} from "~/generated/endpoints/clients/clients";
+import type { Clients } from "~/generated/models";
 import { queryClient } from "~/root";
 
 export function meta() {

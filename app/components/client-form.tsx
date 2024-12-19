@@ -18,16 +18,11 @@ import {
 import { useForm, zodResolver } from "@mantine/form";
 import { IconPlus, IconX } from "@tabler/icons-react";
 import { randomId } from "@mantine/hooks";
-import type {
-  Client,
-  NewClient,
-  UpdatedClient,
-  usePatchClientsClientId,
-  usePostClients,
-} from "~/clients-api";
 import { useParams } from "react-router";
 import type { AxiosError } from "axios";
 import { z } from "zod";
+import type { Client, NewClient, UpdatedClient } from "~/generated/models";
+import type { usePatchClientsClientId, usePostClients } from "~/generated/endpoints/clients/clients";
 
 type FormRedirectUris = {
   redirectUris: Array<{ value: string; key: string }>;
