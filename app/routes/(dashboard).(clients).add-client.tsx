@@ -5,6 +5,10 @@ import { usePostClients, type Clients } from "~/clients-api";
 import ClientForm from "~/components/client-form";
 import { queryClient } from "~/root";
 
+export function meta() {
+  return [{ title: "afabl OAuth2 | Add client" }];
+}
+
 export default function AddClient() {
   const navigate = useNavigate();
 

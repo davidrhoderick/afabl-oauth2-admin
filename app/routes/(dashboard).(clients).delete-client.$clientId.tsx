@@ -8,6 +8,10 @@ import {
 } from "~/clients-api";
 import { queryClient } from "~/root";
 
+export function meta() {
+  return [{ title: "afabl OAuth2 | Delete client" }];
+}
+
 export default function DeleteClient() {
   const navigate = useNavigate();
 

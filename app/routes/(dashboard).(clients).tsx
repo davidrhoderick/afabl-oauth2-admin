@@ -13,7 +13,7 @@ import { Link, Outlet } from "react-router";
 import { useGetClients } from "~/clients-api";
 
 export function meta() {
-  return [{ title: "Rust OAuth2 Server Admin" }];
+  return [{ title: "afabl OAuth2 | Clients" }];
 }
 
 export default function Home() {

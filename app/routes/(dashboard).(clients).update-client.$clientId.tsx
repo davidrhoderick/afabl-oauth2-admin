@@ -9,6 +9,10 @@ import {
 import ClientForm from "~/components/client-form";
 import { queryClient } from "~/root";
 
+export function meta() {
+  return [{ title: "afabl OAuth2 | Update client" }];
+}
+
 export default function UpdateClient() {
   const navigate = useNavigate();
 
