@@ -1,5 +1,5 @@
 {
-  "name": "rust-oauth2-admin",
+  "name": "afabl-oauth2-admin",
   "private": true,
   "type": "module",
   "scripts": {
@@ -47,7 +47,6 @@
     "postcss": "^8.4.49",
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
-    "tailwindcss": "^3.4.16",
     "typescript": "^5.7.2",
     "vite": "^5.4.11",
     "vite-tsconfig-paths": "^5.1.4"
