@@ -17,7 +17,7 @@ export function meta() {
 }
 
 export default function Home() {
-  const { data, error, isLoading } = useGetClients();
+  const { data, error, isLoading } = useGetClients({query: {queryKey: ['clients']}});
 
   return (
     <>

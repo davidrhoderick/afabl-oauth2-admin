@@ -58,7 +58,7 @@ export function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   );
 }
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 export default function App() {
   return (

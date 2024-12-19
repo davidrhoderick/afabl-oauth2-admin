@@ -1,20 +1,41 @@
 import { Alert, Button, Flex, Modal, Stack, Text, Title } from "@mantine/core";
-import { useEffect } from "react";
+import type { AxiosResponse } from "axios";
 import { Link, useNavigate, useParams } from "react-router";
-import { useDeleteClientsClientId, useGetClients } from "~/clients-api";
+import {
+  useDeleteClientsClientId,
+  useGetClients,
+  type Clients,
+} from "~/clients-api";
+import { queryClient } from "~/root";
 
 export default function DeleteClient() {
   const navigate = useNavigate();
 
   const { clientId } = useParams();
 
-  const { data } = useGetClients();
+  const { data } = useGetClients({
+    query: {
+      queryKey: ["clients"],
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+    },
+  });
 
-  const mutation = useDeleteClientsClientId();
+  const mutation = useDeleteClientsClientId({
+    mutation: {
+      onSuccess: () => {
+        queryClient.setQueryData(
+          ["clients"],
+          (oldData: AxiosResponse<Clients>) => ({
+            data: oldData.data.filter((oldClient) => oldClient.id !== clientId),
+          })
+        );
 
-  useEffect(() => {
-    if (mutation.isSuccess) navigate("/");
-  }, [mutation]);
+        navigate("/");
+      },
+    },
+  });
 
   return (
     <Modal opened={true} onClose={() => navigate("/")} title="Delete Client">

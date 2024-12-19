@@ -1,21 +1,43 @@
 import { Alert, Center, Loader, Modal, Text, Title } from "@mantine/core";
-import { useEffect } from "react";
+import type { AxiosResponse } from "axios";
 import { useNavigate, useParams } from "react-router";
-import { useGetClientsClientId, usePatchClientsClientId } from "~/clients-api";
+import {
+  useGetClientsClientId,
+  usePatchClientsClientId,
+  type Clients,
+} from "~/clients-api";
 import ClientForm from "~/components/client-form";
+import { queryClient } from "~/root";
 
 export default function UpdateClient() {
   const navigate = useNavigate();
 
   const { clientId } = useParams();
 
-  const { data, isLoading, isError, error } = useGetClientsClientId(clientId!);
+  const { data, isLoading, isError, error } = useGetClientsClientId(clientId!, {
+    query: { queryKey: ["clients", { id: clientId }] },
+  });
 
-  const mutation = usePatchClientsClientId();
+  const mutation = usePatchClientsClientId({
+    mutation: {
+      onSuccess: (data) => {
+        const { name, id, secret } = data.data;
 
-  useEffect(() => {
-    if (mutation.isSuccess) navigate("/");
-  }, [mutation]);
+        queryClient.setQueryData(
+          ["clients"],
+          (oldData: AxiosResponse<Clients, any>) => ({
+            data: (oldData?.data ?? []).map((oldClient) =>
+              oldClient.id === id ? { name, id, secret } : oldClient
+            ),
+          })
+        );
+
+        queryClient.setQueryData(["clients", { id }], data);
+
+        navigate("/");
+      },
+    },
+  });
 
   return (
     <Modal.Root opened={true} onClose={() => navigate("/")}>
