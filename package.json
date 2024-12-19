@@ -23,6 +23,7 @@
     "@tabler/icons": "^3.26.0",
     "@tabler/icons-react": "^3.26.0",
     "@tanstack/react-query": "^5.62.7",
+    "@tanstack/react-query-devtools": "^5.62.8",
     "axios": "^1.7.9",
     "dayjs": "^1.11.13",
     "isbot": "^5.1.17",
@@ -50,5 +51,6 @@
     "typescript": "^5.7.2",
     "vite": "^5.4.11",
     "vite-tsconfig-paths": "^5.1.4"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
