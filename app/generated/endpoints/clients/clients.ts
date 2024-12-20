@@ -23,8 +23,13 @@ import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import type {
   Client,
   Clients,
+  DeleteClientsClientId500,
   Error,
+  GetClients500,
+  GetClientsClientId500,
   NewClient,
+  PatchClientsClientId500,
+  PostClients500,
   UpdatedClient,
 } from "../../models";
 
@@ -46,7 +51,7 @@ export const getGetClientsClientIdQueryKey = (clientId: string) => {
 
 export const getGetClientsClientIdQueryOptions = <
   TData = Awaited<ReturnType<typeof getClientsClientId>>,
-  TError = AxiosError<Error>
+  TError = AxiosError<Error | GetClientsClientId500>
 >(
   clientId: string,
   options?: {
@@ -84,11 +89,13 @@ export const getGetClientsClientIdQueryOptions = <
 export type GetClientsClientIdQueryResult = NonNullable<
   Awaited<ReturnType<typeof getClientsClientId>>
 >;
-export type GetClientsClientIdQueryError = AxiosError<Error>;
+export type GetClientsClientIdQueryError = AxiosError<
+  Error | GetClientsClientId500
+>;
 
 export function useGetClientsClientId<
   TData = Awaited<ReturnType<typeof getClientsClientId>>,
-  TError = AxiosError<Error>
+  TError = AxiosError<Error | GetClientsClientId500>
 >(
   clientId: string,
   options: {
@@ -114,7 +121,7 @@ export function useGetClientsClientId<
 };
 export function useGetClientsClientId<
   TData = Awaited<ReturnType<typeof getClientsClientId>>,
-  TError = AxiosError<Error>
+  TError = AxiosError<Error | GetClientsClientId500>
 >(
   clientId: string,
   options?: {
@@ -138,7 +145,7 @@ export function useGetClientsClientId<
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 export function useGetClientsClientId<
   TData = Awaited<ReturnType<typeof getClientsClientId>>,
-  TError = AxiosError<Error>
+  TError = AxiosError<Error | GetClientsClientId500>
 >(
   clientId: string,
   options?: {
@@ -155,7 +162,7 @@ export function useGetClientsClientId<
 
 export function useGetClientsClientId<
   TData = Awaited<ReturnType<typeof getClientsClientId>>,
-  TError = AxiosError<Error>
+  TError = AxiosError<Error | GetClientsClientId500>
 >(
   clientId: string,
   options?: {
@@ -193,7 +200,7 @@ export const patchClientsClientId = (
 };
 
 export const getPatchClientsClientIdMutationOptions = <
-  TError = AxiosError<Error>,
+  TError = AxiosError<Error | PatchClientsClientId500>,
   TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
@@ -227,10 +234,12 @@ export type PatchClientsClientIdMutationResult = NonNullable<
   Awaited<ReturnType<typeof patchClientsClientId>>
 >;
 export type PatchClientsClientIdMutationBody = UpdatedClient;
-export type PatchClientsClientIdMutationError = AxiosError<Error>;
+export type PatchClientsClientIdMutationError = AxiosError<
+  Error | PatchClientsClientId500
+>;
 
 export const usePatchClientsClientId = <
-  TError = AxiosError<Error>,
+  TError = AxiosError<Error | PatchClientsClientId500>,
   TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
@@ -261,7 +270,7 @@ export const deleteClientsClientId = (
 };
 
 export const getDeleteClientsClientIdMutationOptions = <
-  TError = AxiosError<Error>,
+  TError = AxiosError<DeleteClientsClientId500>,
   TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
@@ -295,10 +304,11 @@ export type DeleteClientsClientIdMutationResult = NonNullable<
   Awaited<ReturnType<typeof deleteClientsClientId>>
 >;
 
-export type DeleteClientsClientIdMutationError = AxiosError<Error>;
+export type DeleteClientsClientIdMutationError =
+  AxiosError<DeleteClientsClientId500>;
 
 export const useDeleteClientsClientId = <
-  TError = AxiosError<Error>,
+  TError = AxiosError<DeleteClientsClientId500>,
   TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
@@ -330,7 +340,7 @@ export const postClients = (
 };
 
 export const getPostClientsMutationOptions = <
-  TError = AxiosError<Error>,
+  TError = AxiosError<PostClients500>,
   TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
@@ -364,10 +374,10 @@ export type PostClientsMutationResult = NonNullable<
   Awaited<ReturnType<typeof postClients>>
 >;
 export type PostClientsMutationBody = NewClient;
-export type PostClientsMutationError = AxiosError<Error>;
+export type PostClientsMutationError = AxiosError<PostClients500>;
 
 export const usePostClients = <
-  TError = AxiosError<Error>,
+  TError = AxiosError<PostClients500>,
   TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
@@ -404,7 +414,7 @@ export const getGetClientsQueryKey = () => {
 
 export const getGetClientsQueryOptions = <
   TData = Awaited<ReturnType<typeof getClients>>,
-  TError = AxiosError<Error>
+  TError = AxiosError<GetClients500>
 >(options?: {
   query?: Partial<
     UseQueryOptions<Awaited<ReturnType<typeof getClients>>, TError, TData>
@@ -429,11 +439,11 @@ export const getGetClientsQueryOptions = <
 export type GetClientsQueryResult = NonNullable<
   Awaited<ReturnType<typeof getClients>>
 >;
-export type GetClientsQueryError = AxiosError<Error>;
+export type GetClientsQueryError = AxiosError<GetClients500>;
 
 export function useGetClients<
   TData = Awaited<ReturnType<typeof getClients>>,
-  TError = AxiosError<Error>
+  TError = AxiosError<GetClients500>
 >(options: {
   query: Partial<
     UseQueryOptions<Awaited<ReturnType<typeof getClients>>, TError, TData>
@@ -452,7 +462,7 @@ export function useGetClients<
 };
 export function useGetClients<
   TData = Awaited<ReturnType<typeof getClients>>,
-  TError = AxiosError<Error>
+  TError = AxiosError<GetClients500>
 >(options?: {
   query?: Partial<
     UseQueryOptions<Awaited<ReturnType<typeof getClients>>, TError, TData>
@@ -469,7 +479,7 @@ export function useGetClients<
 }): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 export function useGetClients<
   TData = Awaited<ReturnType<typeof getClients>>,
-  TError = AxiosError<Error>
+  TError = AxiosError<GetClients500>
 >(options?: {
   query?: Partial<
     UseQueryOptions<Awaited<ReturnType<typeof getClients>>, TError, TData>
@@ -479,7 +489,7 @@ export function useGetClients<
 
 export function useGetClients<
   TData = Awaited<ReturnType<typeof getClients>>,
-  TError = AxiosError<Error>
+  TError = AxiosError<GetClients500>
 >(options?: {
   query?: Partial<
     UseQueryOptions<Awaited<ReturnType<typeof getClients>>, TError, TData>
