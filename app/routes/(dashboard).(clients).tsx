@@ -10,6 +10,7 @@ import {
   Title,
 } from "@mantine/core";
 import { Link, Outlet } from "react-router";
+import CopyInput from "~/components/copy-input";
 import { useGetClients } from "~/generated/endpoints/clients/clients";
 
 export function meta() {
@@ -47,8 +48,12 @@ export default function Home() {
               {data.data.map(({ id, name, secret }) => (
                 <Table.Tr key={id}>
                   <Table.Td>{name}</Table.Td>
-                  <Table.Td>{id}</Table.Td>
-                  <Table.Td>{secret}</Table.Td>
+                  <Table.Td>
+                    <CopyInput value={id} />
+                  </Table.Td>
+                  <Table.Td>
+                    <CopyInput value={secret} />
+                  </Table.Td>
                   <Table.Td>
                     <Flex justify="end" gap="md">
                       <Button component={Link} to={`/update-client/${id}`}>
