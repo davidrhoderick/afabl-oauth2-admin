@@ -2,22 +2,22 @@ import { defineConfig } from "orval";
 
 export default defineConfig({
   clients: {
-    input: "https://hono-oath2-admin-api.david-e-rhoderick.workers.dev/openapi",
+    input: "https://api.oauthabl.com/openapi",
     output: {
       mode: "tags-split",
       target: "./app/generated/endpoints",
       schemas: "./app/generated/models",
       client: "react-query",
       mock: true,
-      baseUrl: "https://hono-oath2-admin-api.david-e-rhoderick.workers.dev",
+      baseUrl: "https://api.oauthabl.com",
     },
   },
   clientsZod: {
-    input: "https://hono-oath2-admin-api.david-e-rhoderick.workers.dev/openapi",
+    input: "https://api.oauthabl.com/openapi",
     output: {
       mode: "tags-split",
       mock: true,
-      baseUrl: "https://hono-oath2-admin-api.david-e-rhoderick.workers.dev",
+      baseUrl: "https://api.oauthabl.com",
       client: "zod",
       target: "./app/generated/endpoints",
       fileExtension: ".zod.ts",
